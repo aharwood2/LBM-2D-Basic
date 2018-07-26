@@ -1,3 +1,5 @@
+/* LBM-2D-Basic created by Adrian Harwood, The University of Manchester, UK.
+* Use of this software is covered by the Apache 2.0 License. */
 #include "Grid.h"
 #include "constants.h"
 #include <iostream>
