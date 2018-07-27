@@ -24,8 +24,8 @@ Grid::Grid(double width, double height, int resolution, double timestep, double 
 	dt = timestep;
 
 	// Work out number of cells
-	nx = std::floor(static_cast<double>(resolution) * width);
-	ny = std::floor(static_cast<double>(resolution) * height);
+	nx = static_cast<int>(std::floor(static_cast<double>(resolution) * width));
+	ny = static_cast<int>(std::floor(static_cast<double>(resolution) * height));
 
 	// Work out the viscosity in LBM units
 	nu = (1.0 / reynolds) * dt / (dx * dx);
@@ -47,16 +47,6 @@ Grid::Grid(double width, double height, int resolution, double timestep, double 
 				// Wall
 				cells.push_back(new Cell(i, j, 0, 0.0));
 			}
-			//else if (
-			//	i > (nx / 2) - std::floor(0.1 * resolution) &&
-			//	i < (nx / 2) + std::floor(0.1 * resolution) &&
-			//	j > (ny / 2) - std::floor(0.1 * resolution) &&
-			//	j < (ny / 2) + std::floor(0.1 * resolution)
-			//	)
-			//{
-			//	// Solid object
-			//	cells.push_back(new Cell(i, j, 0, 0.0));
-			//}
 			else
 			{
 				// Fluid
