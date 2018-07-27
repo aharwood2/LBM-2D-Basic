@@ -20,12 +20,12 @@ Grid::Grid(double width, double height, int resolution, double timestep, double 
 {
 	// Populate the member variables from dimensionless data
 	reynolds = re;
-	dx = 1.0 / resolution;
+	dx = 1.0 / static_cast<double>(resolution);
 	dt = timestep;
 
 	// Work out number of cells
-	nx = std::floor(resolution * width);
-	ny = std::floor(resolution * height);
+	nx = std::floor(static_cast<double>(resolution) * width);
+	ny = std::floor(static_cast<double>(resolution) * height);
 
 	// Work out the viscosity in LBM units
 	nu = (1.0 / reynolds) * dt / (dx * dx);
@@ -47,16 +47,16 @@ Grid::Grid(double width, double height, int resolution, double timestep, double 
 				// Wall
 				cells.push_back(new Cell(i, j, 0, 0.0));
 			}
-			else if (
-				i > (nx / 2) - std::floor(0.1 * resolution) &&
-				i < (nx / 2) + std::floor(0.1 * resolution) &&
-				j > (ny / 2) - std::floor(0.1 * resolution) &&
-				j < (ny / 2) + std::floor(0.1 * resolution)
-				)
-			{
-				// Solid object
-				cells.push_back(new Cell(i, j, 0, 0.0));
-			}
+			//else if (
+			//	i > (nx / 2) - std::floor(0.1 * resolution) &&
+			//	i < (nx / 2) + std::floor(0.1 * resolution) &&
+			//	j > (ny / 2) - std::floor(0.1 * resolution) &&
+			//	j < (ny / 2) + std::floor(0.1 * resolution)
+			//	)
+			//{
+			//	// Solid object
+			//	cells.push_back(new Cell(i, j, 0, 0.0));
+			//}
 			else
 			{
 				// Fluid
@@ -112,7 +112,7 @@ void Grid::stream()
 	{
 		for (int j = 0; j < ny; j++)
 		{
-			// Copmute 1D index of current cell
+			// Compute 1D index of current cell
 			int currentCell = j + i * ny;
 
 			// Loop over each lattice velocity
